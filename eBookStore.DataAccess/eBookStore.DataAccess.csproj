@@ -11,10 +11,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Data\Migrations\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\eBookStore.Models\eBookStore.Models.csproj" />
     <ProjectReference Include="..\eBookStore.Utility\eBookStore.Utility.csproj" />
   </ItemGroup>
