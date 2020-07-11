@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using eBookStore.DataAccess.Repository.IRepository;
+using eBookStore.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace eBookStore.Areas.Admin.Controllers
@@ -20,6 +21,50 @@ namespace eBookStore.Areas.Admin.Controllers
         public IActionResult Index()
         {
             return View();
+        }
+
+        public IActionResult Upsert(int? id)
+        {
+            Category category = new Category();
+
+            //this for create new category
+            if(id == null)
+            {
+                return View(category);
+            }
+
+            category = _unitOfWork.Category.Get(id.GetValueOrDefault());
+
+            if (category == null)
+            {
+                return NotFound();
+            }
+
+
+            return View(category);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Upsert(Category category)
+        {
+            if (ModelState.IsValid)
+            {
+                if(category.Id == 0)
+                {
+                    _unitOfWork.Category.Add(category);
+                    
+                }
+                else
+                {
+                    _unitOfWork.Category.Update(category); 
+
+                }
+                _unitOfWork.Save();
+                return RedirectToAction(nameof(Index));
+            }
+
+            return View(category);
         }
 
 
