@@ -22,4 +22,8 @@
     <ProjectReference Include="..\eBookStore.Utility\eBookStore.Utility.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\images\products\" />
+  </ItemGroup>
+
 </Project>
