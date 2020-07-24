@@ -19,18 +19,7 @@ namespace eBookStore.DataAccess.Repository
 
         public void Update(Company company)
         {
-            var objFromDb = _db.Companies.FirstOrDefault(s => s.Id == company.Id);
-            if(objFromDb != null)
-            {
-                objFromDb.Name = company.Name;
-                objFromDb.StreetAddress = company.StreetAddress;
-                objFromDb.City = company.City;
-                objFromDb.State = company.State;
-                objFromDb.PostalCode = company.PostalCode;
-                objFromDb.PhoneNumber = company.PhoneNumber;
-                objFromDb.IsAuthorizedCompany = company.IsAuthorizedCompany;
-            }
-            
+            _db.Update(company);            
         }
     }
 }
