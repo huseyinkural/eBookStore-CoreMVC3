@@ -15,6 +15,8 @@ using Microsoft.Extensions.Hosting;
 using eBookStore.DataAccess.Data;
 using eBookStore.DataAccess.Repository.IRepository;
 using eBookStore.DataAccess.Repository;
+using Microsoft.AspNetCore.Identity.UI.Services;
+using eBookStore.Utility;
 
 namespace eBookStore
 {
@@ -33,8 +35,9 @@ namespace eBookStore
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
-            services.AddDefaultIdentity<IdentityUser>()
+            services.AddIdentity<IdentityUser,IdentityRole>().AddDefaultTokenProviders()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
+            services.AddSingleton<IEmailSender, EmailSender>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
             services.AddRazorPages();
