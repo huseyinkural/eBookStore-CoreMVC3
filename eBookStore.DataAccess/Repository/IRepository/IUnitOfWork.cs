@@ -14,6 +14,10 @@ namespace eBookStore.DataAccess.Repository.IRepository
 
         ISP_Call SP_Call { get; }
 
+        IShoppingCartRepository ShoppingCart { get; }
+        IOrderDetailsRepository OrderDetails { get; }
+        IOrderHeaderRepository OrderHeader { get; }
+
         void Save();
     }
 }
