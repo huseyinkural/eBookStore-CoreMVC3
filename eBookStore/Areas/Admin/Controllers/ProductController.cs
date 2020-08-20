@@ -6,12 +6,15 @@ using System.Threading.Tasks;
 using eBookStore.DataAccess.Repository.IRepository;
 using eBookStore.Models;
 using eBookStore.Models.ViewModels;
+using eBookStore.Utility;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 namespace eBookStore.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = SD.Role_Admin)]
     public class ProductController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;

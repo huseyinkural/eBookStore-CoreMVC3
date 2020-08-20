@@ -38,9 +38,29 @@ namespace eBookStore
             services.AddIdentity<IdentityUser,IdentityRole>().AddDefaultTokenProviders()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddSingleton<IEmailSender, EmailSender>();
+            services.Configure<EmailOptions>(Configuration);
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
             services.AddRazorPages();
+
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.LoginPath = $"/Identity/Account/Login";
+                options.LogoutPath = $"/Identity/Account/Logout";
+                options.AccessDeniedPath = $"/Identity/Account/AccessDenied";
+            });
+
+            services.AddAuthentication().AddFacebook(options =>
+            {
+                options.AppId = "644096306219610";
+                options.AppSecret = "3516f3de4fd9c34a4f5bd490bf84a221";
+            });
+
+            services.AddAuthentication().AddGoogle(options =>
+            {
+                options.ClientId = "853671567174-rslifimdfq0pug9da6q6k7vq5ubdnrjh.apps.googleusercontent.com";
+                options.ClientSecret = "vlPVbtSS_fEFiDPyTgeWFD7Q";
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

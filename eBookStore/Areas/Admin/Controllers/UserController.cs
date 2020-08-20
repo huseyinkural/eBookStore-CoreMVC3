@@ -5,12 +5,16 @@ using System.Threading.Tasks;
 using eBookStore.DataAccess.Data;
 using eBookStore.DataAccess.Repository.IRepository;
 using eBookStore.Models;
+using eBookStore.Utility;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace eBookStore.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = SD.Role_Admin + "," + SD.Role_Employee)]
+
     public class UserController : Controller
     {
         private readonly ApplicationDbContext _db;

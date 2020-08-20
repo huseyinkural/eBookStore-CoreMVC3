@@ -14,7 +14,7 @@ using Microsoft.Extensions.Logging;
 
 namespace eBookStore.Areas.Identity.Pages.Account
 {
-    [AllowAnonymous]
+    [AllowAnonymous]   
     public class LoginModel : PageModel
     {
         private readonly UserManager<IdentityUser> _userManager;

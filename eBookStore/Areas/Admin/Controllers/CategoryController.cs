@@ -4,11 +4,14 @@ using System.Linq;
 using System.Threading.Tasks;
 using eBookStore.DataAccess.Repository.IRepository;
 using eBookStore.Models;
+using eBookStore.Utility;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace eBookStore.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = SD.Role_Admin)]
     public class CategoryController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
