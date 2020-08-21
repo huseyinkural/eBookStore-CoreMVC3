@@ -10,6 +10,8 @@ using eBookStore.DataAccess.Repository.IRepository;
 using eBookStore.Models;
 using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
+using eBookStore.Utility;
+using Microsoft.AspNetCore.Http;
 
 namespace eBookStore.Areas.Customer.Controllers
 {
@@ -29,7 +31,23 @@ namespace eBookStore.Areas.Customer.Controllers
         {
             IEnumerable<Product> productList = _unitOfWork.Product.GetAll(includeProperties:"Category,CoverType");
 
+         
+
+            var claimsIdentity = (ClaimsIdentity)User.Identity;
+            var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
+
+            if(claim != null)
+            {
+
+                var count = _unitOfWork.ShoppingCart
+                    .GetAll(c => c.ApplicationUserId == claim.Value)
+                    .ToList().Count();
+
+                HttpContext.Session.SetInt32(SD.ssShoppingCart, count);
+            }
+
             return View(productList);
+
         }
 
         public IActionResult Details(int id)
@@ -72,6 +90,12 @@ namespace eBookStore.Areas.Customer.Controllers
                     _unitOfWork.ShoppingCart.Update(cartFromDb);
                 }
                 _unitOfWork.Save();
+
+                var count = _unitOfWork.ShoppingCart
+                    .GetAll(c=> c.ApplicationUserId == CartObject.ApplicationUserId)
+                    .ToList().Count();
+                
+                HttpContext.Session.SetInt32(SD.ssShoppingCart, count);
 
                 return RedirectToAction(nameof(Index));
 
