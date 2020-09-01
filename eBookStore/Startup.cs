@@ -17,6 +17,8 @@ using eBookStore.DataAccess.Repository.IRepository;
 using eBookStore.DataAccess.Repository;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using eBookStore.Utility;
+using System.Configuration;
+using Stripe;
 
 namespace eBookStore
 {
@@ -39,6 +41,7 @@ namespace eBookStore
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddSingleton<IEmailSender, EmailSender>();
             services.Configure<EmailOptions>(Configuration);
+            services.Configure<StripeSettings>(Configuration.GetSection("Stripe"));
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
             services.AddRazorPages();
@@ -89,6 +92,7 @@ namespace eBookStore
             app.UseStaticFiles();
 
             app.UseRouting();
+            StripeConfiguration.ApiKey = Configuration.GetSection("Stripe")["SecretKey"];
             app.UseSession();
             app.UseAuthentication();
             app.UseAuthorization();
