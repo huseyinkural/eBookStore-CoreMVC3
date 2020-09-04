@@ -201,7 +201,6 @@ namespace eBookStore.Areas.Customer.Controllers
             _unitOfWork.Save();
 
 
-            List<OrderDetails> orderDetailsList = new List<OrderDetails>();
             foreach(var item in ShoppingCartVM.ListCart)
             {
                 item.Price = SD.GetPriceBasedOnQuantity(item.Count, item.Product.Price, item.Product.Price50, item.Product.Price100);
