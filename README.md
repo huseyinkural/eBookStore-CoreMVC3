@@ -1,6 +1,7 @@
 ## eBookStore-ASP.NET Core 3.1
 You may see project on [Azure](https://ebookstore-web.azurewebsites.net/)
--ASP.NET MVC Core 3.1 Project
+
+- ASP.NET MVC Core 3.1 Project
 -Sessions in ASP.NET Core 3.1
 -Custom Tag Helpers in ASP.NET Core 3.1
 -View Components and Partial Views in ASP.NET Core
